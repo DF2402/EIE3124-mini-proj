@@ -26,6 +26,8 @@ dataset = dataset[(z_scores < 3).all(axis=1)]
 # Impute missing values (Replace missing values with mean)
 dataset = dataset.fillna(dataset.mean())
 
+dataset.to_csv('output.csv', index=False)
+
 # Scatter plot and fitted curve for LSTAT
 plt.figure(figsize=(10, 6))
 plt.scatter(dataset['LSTAT'], dataset['MEDV'], c='b', label='LSTAT')
