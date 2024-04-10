@@ -17,7 +17,7 @@ import matplotlib.pyplot as plt
 
 # Reading features from the dataset
 names = ['LSTAT', 'RM', 'MEDV']
-dataset = pd.read_csv('boston.csv', usecols=names)
+dataset = pd.read_csv('cleaned_dataset.csv', usecols=names)
 # Splitting features and labels
 X = dataset[['LSTAT', 'RM']].values
 y = dataset['MEDV'].values

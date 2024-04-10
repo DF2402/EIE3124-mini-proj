@@ -6,9 +6,9 @@ from sklearn.preprocessing import PolynomialFeatures
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 
+
 names = ['LSTAT','RM','MEDV']
 dataset = pd.read_csv('boston.csv', usecols=names)
-
 
 # division labels
 X = dataset[['LSTAT', 'RM']].values
