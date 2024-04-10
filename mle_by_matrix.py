@@ -18,17 +18,14 @@ import matplotlib.pyplot as plt
 # Reading features from the dataset
 names = ['LSTAT', 'RM', 'MEDV']
 dataset = pd.read_csv('boston.csv', usecols=names)
-
 # Splitting features and labels
 X = dataset[['LSTAT', 'RM']].values
 y = dataset['MEDV'].values
-
 # Splitting into training and test sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=36)
 X_train_df = pd.DataFrame(X_train,columns=['LSTAT', 'RM'])
 Y_train_df = pd.DataFrame(y_train,columns=['MEDV'])
 training_data = pd.concat([X_train_df,Y_train_df],axis = 1)
-
 X_test_df = pd.DataFrame(X_test,columns=['LSTAT', 'RM'])
 Y_test_df = pd.DataFrame(y_test,columns=['MEDV'])
 testing_data = pd.concat([X_test_df,Y_test_df],axis = 1)
@@ -128,6 +125,7 @@ plt.plot(predict,'bo',label = 'predict')
 plt.plot(testing_data['MEDV'],'ro', label = 'actual value')
 plt.ylabel('MEDV')
 plt.legend()
+plt.title("without K-fold")
 plt.show()
 
 # evaluation
