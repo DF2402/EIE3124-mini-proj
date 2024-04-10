@@ -8,7 +8,7 @@ from sklearn.preprocessing import PolynomialFeatures
 from sklearn.model_selection import train_test_split
 
 names = ['LSTAT','RM','MEDV']
-dataset = pd.read_csv('boston.csv', usecols=names)
+dataset = pd.read_csv('cleaned_dataset.csv', usecols=names)
 
 
 # division labels

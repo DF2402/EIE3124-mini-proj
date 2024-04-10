@@ -8,7 +8,7 @@ from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 
 
 names = ['LSTAT','RM','MEDV']
-dataset = pd.read_csv('boston.csv', usecols=names)
+dataset = pd.read_csv('cleaned_dataset.csv', usecols=names)
 
 # division labels
 X = dataset[['LSTAT', 'RM']].values
