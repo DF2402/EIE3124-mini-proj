@@ -7,6 +7,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 from scipy.stats import linregress
 from scipy import stats
+from mpl_toolkits.mplot3d import Axes3D
 
 # Read the cleaned dataset
 names = ['CRIM', 'ZN', 'INDUS', 'CHAS', 'NOX', 'RM', 'AGE', 'DIS', 'RAD', 'TAX', 'PTRATIO', 'B', 'LSTAT', 'MEDV']
@@ -107,36 +108,22 @@ mse_map_test = mean_squared_error(y_pmap_test,y_test)
 mse_map_train= mean_squared_error( y_pmap_train,y_train)
 mse_lr_test = mean_squared_error(y_plr_test,y_test)
 mse_lr_train = mean_squared_error(y_plr_train,y_train)
-
-lse_map = calculate_lse(y_test,y_pmap_test)
-print("LSE (MAP):", lse_map)
-r2_map = calculate_r2(y_test,y_pmap_test)
-print("R2 (MAP):", r2_map)
-
-lse_lr = calculate_lse(y_test,y_plr_train)
-print("LSE (Linear regression):", lse_lr)
-r2_lr = calculate_r2(y_test,y_plr_train)
-print("R2 (Linear regression):", r2_lr)
-
 print(f"MSE for training on MAP model:{mse_map_train}")
 print(f"MSE for testing on MAP model:{mse_map_test}")
 print(f"MSE for training on linear regression model:{mse_lr_train}")
 print(f"MSE for testing on linear regression model:{mse_lr_test}")
 
-"""
-# RMSE
-rmse1 = mean_squared_error(y_test, y_pred1, squared=False)
-rmse2 = mean_squared_error(y_test, y_pred2, squared=False)
-print(f"RMSE: {rmse2}")
-
-# MAE
-mae = mean_absolute_error(y_test, y_pred1)
-print(f"Mean Absolute Error (MAE): {mae}")
-
 # R²
-r1 = r2_score(y_test, y_pred1)
-r2 = r2_score(y_test, y_pred2)
-print()
-"""
+r_map_train= r2_score(y_train,y_pmap_train)
+r_map_test = r2_score(y_test,y_pmap_test)
+r_lr_train = r2_score(y_train,y_plr_train)
+r_lr_test = r2_score(y_test,y_plr_test)
+
+print(f"R^2 for training on MAP model:{r_map_train}")
+print(f"R^2  for testing on MAP model:{r_map_test}")
+print(f"R^2  for training on linear regression model:{r_lr_train}")
+print(f"R^2  for testing on linear regression model:{r_lr_test}")
+
+
 
 

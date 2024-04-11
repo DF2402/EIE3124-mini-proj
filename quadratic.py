@@ -7,7 +7,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 from scipy.stats import linregress
 from scipy import stats
-from evaluation import calculate_lse,calculate_r2
+from mpl_toolkits.mplot3d import Axes3D
 
 #load the cleaned dataset
 names = ['CRIM', 'ZN', 'INDUS', 'CHAS', 'NOX', 'RM', 'AGE', 'DIS', 'RAD', 'TAX', 'PTRATIO', 'B', 'LSTAT', 'MEDV']
@@ -50,6 +50,11 @@ mse_train = mean_squared_error(y_train, y_train_pred)
 mse_test = mean_squared_error(y_test, y_test_pred)
 print(f"MSE for training:{mse_train}")
 print(f"MSE for testing:{mse_test}")
+
+r_train = r2_score(y_train,y_train_pred)
+r_test = r2_score(y_test,y_test_pred)
+print(f"R^2 for training on quadratic regression model:{r_train}")
+print(f"R^2 for testing on quadratic regression model:{r_test}")
 
 #plot the fitting line in 3d plot
 # Plotting the 3D surface
@@ -105,7 +110,3 @@ plt.show()
 plt.close()
 
 
-lse_map = calculate_lse(y_test,y_test_pred)
-print("LSE (quadratic):", lse_mle)
-r2_map = calculate_r2(y_test,y_test_pred)
-print("R2 (quadratic):", r2_mle)
