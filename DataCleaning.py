@@ -21,3 +21,4 @@ dataset['MEDV'] = winsorized_MEDV
 name = ['LSTAT','RM','MEDV']
 dataset = dataset[name]
 dataset.to_csv('cleaned_dataset.csv', index=False)
+print("The dataset is clean. ")
