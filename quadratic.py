@@ -5,11 +5,13 @@ from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
+from scipy.stats import linregress
+from scipy import stats
+from evaluation import calculate_lse,calculate_r2
 
-
-names = ['LSTAT','RM','MEDV']
-dataset = pd.read_csv('cleaned_dataset.csv', usecols=names)
-
+#load the cleaned dataset
+names = ['CRIM', 'ZN', 'INDUS', 'CHAS', 'NOX', 'RM', 'AGE', 'DIS', 'RAD', 'TAX', 'PTRATIO', 'B', 'LSTAT', 'MEDV']
+dataset = pd.read_csv('cleaned_dataset.csv')
 # division labels
 X = dataset[['LSTAT', 'RM']].values
 y = dataset['MEDV'].values
@@ -38,16 +40,16 @@ y_test_pred = model.predict(X_test_poly)
 equation_terms = []
 feature_names = poly.get_feature_names_out(['LSTAT', 'RM'])
 for coef, feature_name in zip(weights[:-1], feature_names):
-    equation_terms.append(f"{coef:.2f}*{feature_name}")
+    equation_terms.append(f"({coef:.2f}*{feature_name})")
 equation = " + ".join(equation_terms)
 equation = f"MEDV = {equation} + {weights[-1]:.2f}"
 print(equation)
+
 #error calculation
 mse_train = mean_squared_error(y_train, y_train_pred)
 mse_test = mean_squared_error(y_test, y_test_pred)
 print(f"MSE for training:{mse_train}")
 print(f"MSE for testing:{mse_test}")
-
 
 #plot the fitting line in 3d plot
 # Plotting the 3D surface
@@ -103,3 +105,7 @@ plt.show()
 plt.close()
 
 
+lse_map = calculate_lse(y_test,y_test_pred)
+print("LSE (quadratic):", lse_mle)
+r2_map = calculate_r2(y_test,y_test_pred)
+print("R2 (quadratic):", r2_mle)

@@ -104,12 +104,15 @@ plt.title("K-fold")
 plt.show()
 
 # evaluation
-r_square = calculate_r2(testing_data['MEDV'],predict)
-LSE = calculate_lse(testing_data['MEDV'],predict)
-print('k-fold r^2 : ',r_square," LSE : ",LSE)
+
+lse_mle = calculate_lse(testing_data['MEDV'],predict)
+print("LSE (MLE with k-fold):", lse_mle)
+r2_mle = calculate_r2(testing_data['MEDV'],predict)
+print("R2 (MLE with k-fold):", r2_mle)
+
 
 model = mle_by_matrix(training_data)
-print(model)
+
 
 # testing 
 predict = []
@@ -129,6 +132,8 @@ plt.title("without K-fold")
 plt.show()
 
 # evaluation
-r_square = calculate_r2(testing_data['MEDV'],predict)
-LSE = calculate_lse(testing_data['MEDV'],predict)
-print('normal r^2 : ',r_square," LSE : ", LSE)
+lse_mle = calculate_lse(testing_data['MEDV'],predict)
+print("LSE (MLE without k-fold):", lse_mle)
+r2_mle = calculate_r2(testing_data['MEDV'],predict)
+print("R2 (MLE without k-fold):", r2_mle)
+
