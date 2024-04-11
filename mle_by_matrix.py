@@ -9,9 +9,8 @@ Created on Tue Apr  9 22:43:31 2024
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from evaluation import calculate_lse,calculate_r2
 import matplotlib.pyplot as plt
-
+from sklearn.metrics import mean_squared_error, r2_score
 
 
 
@@ -65,16 +64,16 @@ def k_fold (dataset,k):
             temp_x,temp_z,temp_y = row['LSTAT'],row['RM'],row['MEDV']
             predict.append(regression(temp_x,temp_z,model))
         # model performance
-        r_square = calculate_r2(testing_set['MEDV'],predict)
+        r_square = r2_score(testing_set['MEDV'],predict)
         r_squares.append(r_square)
-        LSE = calculate_lse(testing_set['MEDV'],predict)
+        LSE = mean_squared_error(testing_set['MEDV'],predict)
         LSEs.append(LSE)
         models.append(model)
-        
+    """
     print("coefficients of models :", models)
     print("r^2 :",r_squares)
     print("LSE :",LSEs)
-    
+    """
     best_r_squares = max(r_squares)
     index_of_best_model = r_squares.index(best_r_squares)
     
@@ -105,11 +104,23 @@ plt.show()
 
 # evaluation
 
-lse_mle = calculate_lse(testing_data['MEDV'],predict)
+lse_mle = mean_squared_error(testing_data['MEDV'],predict)
 print("LSE (MLE with k-fold):", lse_mle)
-r2_mle = calculate_r2(testing_data['MEDV'],predict)
+r2_mle = r2_score(testing_data['MEDV'],predict)
 print("R2 (MLE with k-fold):", r2_mle)
 
+predict = []
+    
+n = training_data.shape[0]
+for i in range(n) :
+    temp_x = training_data['LSTAT'][i]
+    temp_z = training_data['RM'][i]
+    predict.append(regression(temp_x,temp_z,model_k))
+    
+lse_mle = mean_squared_error(training_data['MEDV'],predict)
+print("LSE (MLE with k-fold) training:", lse_mle)
+r2_mle = r2_score(training_data['MEDV'],predict)
+print("R2 (MLE with k-fold) training:", r2_mle)
 
 model = mle_by_matrix(training_data)
 
@@ -132,8 +143,20 @@ plt.title("without K-fold")
 plt.show()
 
 # evaluation
-lse_mle = calculate_lse(testing_data['MEDV'],predict)
+lse_mle = mean_squared_error(testing_data['MEDV'],predict)
 print("LSE (MLE without k-fold):", lse_mle)
-r2_mle = calculate_r2(testing_data['MEDV'],predict)
+r2_mle = r2_score(testing_data['MEDV'],predict)
 print("R2 (MLE without k-fold):", r2_mle)
 
+predict = []
+    
+n = training_data.shape[0]
+for i in range(n) :
+    temp_x = training_data['LSTAT'][i]
+    temp_z = training_data['RM'][i]
+    predict.append(regression(temp_x,temp_z,model))
+    
+lse_mle = mean_squared_error(training_data['MEDV'],predict)
+print("LSE (MLE without k-fold) training:", lse_mle)
+r2_mle = r2_score(training_data['MEDV'],predict)
+print("R2 (MLE without k-fold) training:", r2_mle)
